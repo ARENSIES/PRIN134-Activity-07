@@ -39,7 +39,7 @@ function rankingDisplay(players) {
     });
 }
 
-function tieBreaker(players){
+function tieBreaker(players, round = 2){
     let tiedPlayers = players.filter(player => player.score === players[0].score);
     if (tiedPlayers.length === 1) {
         console.log("\n" + String.fromCodePoint(0x1F3C6) + ` The champion is ${tiedPlayers[0].name} (${tiedPlayers[0].team}) with ${tiedPlayers[0].score} points!`);
@@ -47,13 +47,13 @@ function tieBreaker(players){
     }
 
     console.log("\n" + String.fromCodePoint(0x1F3B2) + ` Tiebreaker needed between: ${tiedPlayers.map(p => `${p.name} (${p.team})`).join(", ")}`);
-    console.log("\n" + String.fromCodePoint(0x1F3C0) + " Round 2 Begins!");
+    console.log("\n" + String.fromCodePoint(0x1F3C0) + ` Round ${round} Begins!`);
 
     startRound(tiedPlayers, 3);
     tiedPlayers.forEach(player => console.log(`${player.name} (${player.team}) scored ${player.score} successful shots.`));
 
     rankingDisplay(tiedPlayers);
-    tieBreaker(tiedPlayers);
+    tieBreaker(tiedPlayers, round + 1);
 }
 
 console.log(String.fromCodePoint(0x1F3C0) + " Starting the game! \n");
